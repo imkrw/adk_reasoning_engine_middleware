@@ -31,6 +31,7 @@ async def create_session(
         raise HTTPException(
             status_code=502, detail={"error": "create_session_no_id", "upstream": data}
         )
+    print(f"Created sessionId: {session_id}")
     return session_id
 
 

@@ -33,7 +33,7 @@ def _build_base_body(
     return {
         "companyId": payload.company_id,
         "userId": payload.user_id,
-        "webHook": payload.webhook,
+        "webhook": payload.webhook,
         "sessionId": session_id,
         "sessionExists": session_exists,
         "serviceTimingsUsage": timings,
@@ -90,7 +90,7 @@ async def middleware_endpoint(
     contact_human_code = "###CONTACT_STAFF###" in payload.user_message
 
     hook = payload.webhook.strip()
-    notify_hook = payload.webhook_notify.strip()
+    notify_hook = payload.webhook_notify.strip() if payload.webhook_notify else None
 
     final_message = (
         CONTACT_STAFF_MSG
@@ -114,7 +114,7 @@ async def middleware_endpoint(
     if contact_human_code and notify_hook:
         notify_body = {
             **base_body,
-            "webHook": notify_hook,
+            "webhookNotify": notify_hook,
             "message": CONTACT_STAFF_MSG,
         }
         parsed_notify = urlparse(notify_hook)

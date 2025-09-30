@@ -69,9 +69,7 @@ async def middleware_endpoint(
         session_exists = True
     else:
         t0 = time.perf_counter()
-        session_id = await create_session(
-            client, auth_headers, payload.user_id, payload.company_id
-        )
+        session_id = await create_session(client, auth_headers, payload.user_id)
         service_timings_usage["createSession"] = round(time.perf_counter() - t0, 2)
         t0 = time.perf_counter()
         await set_session_id_for_user(payload.user_id, session_id)
@@ -86,7 +84,6 @@ async def middleware_endpoint(
         payload.user_id,
         session_id,
         payload.user_message,
-        payload.company_id,
     )
     service_timings_usage["streamQuery"] = round(time.perf_counter() - t0, 2)
 

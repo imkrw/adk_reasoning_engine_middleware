@@ -1,6 +1,6 @@
+from __future__ import annotations
 import json
 import httpx
-from __future__ import annotations
 from config.settings import get_query_url, get_stream_url
 from fastapi import HTTPException
 

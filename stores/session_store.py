@@ -1,5 +1,5 @@
-import os
 from __future__ import annotations
+import os
 from dataclasses import dataclass
 from typing import Optional
 from redis.asyncio import Redis

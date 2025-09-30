@@ -92,11 +92,6 @@ async def middleware_endpoint(
     hook = payload.webhook.strip()
     notify_hook = payload.webhook_notify.strip() if payload.webhook_notify else None
 
-    final_message = (
-        CONTACT_STAFF_MSG
-        if contact_human_code
-        else (response_text or "No response from engine.")
-    )
     base_body = _build_base_body(
         payload, session_id, session_exists, service_timings_usage
     )

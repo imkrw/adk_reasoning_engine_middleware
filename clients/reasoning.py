@@ -9,10 +9,9 @@ async def create_session(
     client: httpx.AsyncClient,
     headers: dict[str, str],
     user_id: str,
-    company_id: str | None,
 ) -> str:
     payload = {"class_method": "async_create_session", "input": {"user_id": user_id}}
-    query_url = get_query_url(company_id)
+    query_url = get_query_url()
     response = await client.post(query_url, headers=headers, json=payload)
     try:
         response.raise_for_status()
@@ -41,7 +40,6 @@ async def stream_query(
     user_id: str,
     session_id: str,
     message: str,
-    company_id: str | None,
 ) -> str:
     payload = {
         "class_method": "async_stream_query",
@@ -49,7 +47,7 @@ async def stream_query(
     }
 
     collected_text: list[str] = []
-    stream_url = get_stream_url(company_id)
+    stream_url = get_stream_url()
     async with client.stream(
         "POST", stream_url, headers=headers, json=payload, timeout=None
     ) as response:
